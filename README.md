@@ -1,2 +1,2 @@
-# react-boilerplate
-React Boilerplate
+# Restaurant Roulette
+Restaurant Roulette
