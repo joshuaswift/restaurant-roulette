@@ -8,18 +8,18 @@ class RestaurantInfo extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      info: [],
-      API_KEY: "96655442d9afa6b0eb1f89c6a2cb611b"
+      info: []
     };
   }
 
   componentDidMount() {
+    const API_KEY = "96655442d9afa6b0eb1f89c6a2cb611b";
     fetch(
       "https://developers.zomato.com/api/v2.1/geocode?lat=40.732013&lon=-73.996155",
       {
         method: "GET",
         headers: {
-          "user-key": this.API_KEY,
+          "user-key": API_KEY,
           Accept: "application/json"
         }
       }
@@ -51,11 +51,27 @@ class RestaurantInfo extends Component {
     } else {
       return (
         <div>
-          <h1>This works!</h1>
           <ul>
-            {info.nearby_restaurants.map(item => (
-              <li key={item[0].id}>{item[0].name}</li>
-            ))}
+            <li>{info.nearby_restaurants[0].restaurant.name}</li>
+            <li>{info.nearby_restaurants[0].restaurant.cuisines}</li>
+            <li>
+              {info.nearby_restaurants[0].restaurant.currency +
+                "" +
+                info.nearby_restaurants[0].restaurant.average_cost_for_two}
+            </li>
+            <li>
+              {info.nearby_restaurants[0].restaurant.user_rating
+                .aggregate_rating +
+                "/5" +
+                " - " +
+                info.nearby_restaurants[0].restaurant.user_rating.rating_text}
+            </li>
+            <li>
+              <img src={info.nearby_restaurants[0].restaurant.thumb} />
+            </li>
+            <li>
+              <a href={info.nearby_restaurants[0].restaurant.url}>More Info</a>
+            </li>
           </ul>
         </div>
       );
