@@ -1,21 +1,29 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import RestaurantButton from "./RestaurantButton";
 import "../css/style.css";
 
 class RestaurantInfo extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       error: null,
       isLoaded: false,
       info: []
     };
+
+    this.updateDOM.bind(this);
   }
 
-  componentDidMount() {
+  getJSON(lat, lon) {
     const API_KEY = "96655442d9afa6b0eb1f89c6a2cb611b";
+
     fetch(
-      "https://developers.zomato.com/api/v2.1/geocode?lat=40.732013&lon=-73.996155",
+      "https://developers.zomato.com/api/v2.1/geocode?lat=" +
+        lat +
+        "&lon=" +
+        lon,
       {
         method: "GET",
         headers: {
@@ -42,40 +50,63 @@ class RestaurantInfo extends Component {
       );
   }
 
-  render() {
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(position => {
+      this.getJSON(position.coords.latitude, position.coords.longitude);
+    });
+  }
+
+  componentDidMount() {
+    this.getLocation();
+  }
+
+  updateDOM() {
     const { error, isLoaded, info } = this.state;
+    const restArr = [info.nearby_restaurants];
     if (error) {
       return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
+      const random = Math.floor(Math.random() * restArr[0].length);
       return (
         <div>
           <ul>
-            <li>{info.nearby_restaurants[0].restaurant.name}</li>
-            <li>{info.nearby_restaurants[0].restaurant.cuisines}</li>
+            <li>{info.nearby_restaurants[random].restaurant.name}</li>
+            <li>{info.nearby_restaurants[random].restaurant.cuisines}</li>
             <li>
-              {info.nearby_restaurants[0].restaurant.currency +
+              {info.nearby_restaurants[random].restaurant.currency +
                 "" +
-                info.nearby_restaurants[0].restaurant.average_cost_for_two}
+                info.nearby_restaurants[random].restaurant.average_cost_for_two}
             </li>
             <li>
-              {info.nearby_restaurants[0].restaurant.user_rating
+              {info.nearby_restaurants[random].restaurant.user_rating
                 .aggregate_rating +
                 "/5" +
                 " - " +
-                info.nearby_restaurants[0].restaurant.user_rating.rating_text}
+                info.nearby_restaurants[random].restaurant.user_rating
+                  .rating_text}
             </li>
             <li>
-              <img src={info.nearby_restaurants[0].restaurant.thumb} />
+              <img src={info.nearby_restaurants[random].restaurant.thumb} />
             </li>
             <li>
-              <a href={info.nearby_restaurants[0].restaurant.url}>More Info</a>
+              <a
+                target="_blank"
+                href={info.nearby_restaurants[random].restaurant.url}
+              >
+                More Info
+              </a>
             </li>
           </ul>
+          <RestaurantButton updateDOM={this.updateDOM} />
         </div>
       );
     }
+  }
+
+  render() {
+    return <div>{this.updateDOM()}</div>;
   }
 }
 
