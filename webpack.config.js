@@ -3,6 +3,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+
 //Define paths
 const paths = {
   DIST: path.resolve(__dirname, "dist"),
@@ -22,7 +25,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, "index.html")
     }),
-    new ExtractTextPlugin("style.bundle.css")
+    new ExtractTextPlugin("style.bundle.css"),
+    new BundleAnalyzerPlugin(),
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": '"production"'
+    })
   ],
   module: {
     rules: [

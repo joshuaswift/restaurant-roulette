@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import RestaurantButton from "./RestaurantButton";
 import "../css/style.css";
 
 class RestaurantInfo extends Component {
@@ -13,7 +12,33 @@ class RestaurantInfo extends Component {
       info: []
     };
 
-    this.updateDOM.bind(this);
+    this.updateDOM = this.updateDOM.bind(this);
+  }
+
+  getLocation() {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+    //Dummy one, which will result in a working next statement.
+    navigator.geolocation.getCurrentPosition(function() {}, function() {}, {});
+    //The working next statement.
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        //Your code here
+        console.log(this.state);
+        this.getJSON(position.coords.latitude, position.coords.longitude);
+      },
+      error => {
+        //Your error handling here
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      },
+      options
+    );
   }
 
   getJSON(lat, lon) {
@@ -50,14 +75,9 @@ class RestaurantInfo extends Component {
       );
   }
 
-  getLocation() {
-    navigator.geolocation.getCurrentPosition(position => {
-      this.getJSON(position.coords.latitude, position.coords.longitude);
-    });
-  }
-
   componentDidMount() {
     this.getLocation();
+    console.log("mounted");
   }
 
   updateDOM() {
@@ -99,7 +119,7 @@ class RestaurantInfo extends Component {
               </a>
             </li>
           </ul>
-          <RestaurantButton updateDOM={this.updateDOM} />
+          <button onClick={this.updateDOM}>New Restaurant</button>
         </div>
       );
     }
