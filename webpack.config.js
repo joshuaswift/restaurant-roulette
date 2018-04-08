@@ -26,10 +26,7 @@ module.exports = {
       template: path.join(paths.SRC, "index.html")
     }),
     new ExtractTextPlugin("style.bundle.css"),
-    new BundleAnalyzerPlugin(),
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": '"production"'
-    })
+    new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [

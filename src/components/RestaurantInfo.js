@@ -9,10 +9,13 @@ class RestaurantInfo extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      info: []
+      info: [],
+      shouldUpdate: false
     };
 
-    this.updateDOM = this.updateDOM.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+
+    //this.updateDOM = this.updateDOM.bind(this);
   }
 
   getLocation() {
@@ -27,7 +30,6 @@ class RestaurantInfo extends Component {
     navigator.geolocation.getCurrentPosition(
       position => {
         //Your code here
-        console.log(this.state);
         this.getJSON(position.coords.latitude, position.coords.longitude);
       },
       error => {
@@ -80,7 +82,11 @@ class RestaurantInfo extends Component {
     console.log("mounted");
   }
 
-  updateDOM() {
+  handleClick() {
+    this.setState({ shouldUpdate: true });
+  }
+
+  render() {
     const { error, isLoaded, info } = this.state;
     const restArr = [info.nearby_restaurants];
     if (error) {
@@ -88,7 +94,7 @@ class RestaurantInfo extends Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      const random = Math.floor(Math.random() * restArr[0].length);
+      let random = Math.floor(Math.random() * restArr[0].length);
       return (
         <div>
           <ul>
@@ -109,6 +115,7 @@ class RestaurantInfo extends Component {
             </li>
             <li>
               <img src={info.nearby_restaurants[random].restaurant.thumb} />
+              {console.log(info.nearby_restaurants[random])}
             </li>
             <li>
               <a
@@ -119,14 +126,10 @@ class RestaurantInfo extends Component {
               </a>
             </li>
           </ul>
-          <button onClick={this.updateDOM}>New Restaurant</button>
+          <button onClick={this.handleClick}>New Restaurant</button>
         </div>
       );
     }
-  }
-
-  render() {
-    return <div>{this.updateDOM()}</div>;
   }
 }
 
