@@ -14,15 +14,60 @@ class RestaurantInfo extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
-
-    //this.updateDOM = this.updateDOM.bind(this);
+    this.getJSON = this.getJSON.bind(this);
   }
-
+  /*
   getLocation() {
     const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
+      enableHighAccuracy: true
+    };
+
+    navigator.geolocation
+      ? navigator.geolocation.getCurrentPosition(geoSuccess, geoError, options)
+      : geoError();
+
+    // Success. navigator.geolocation is supported and not blocked.
+    function geoSuccess(data) {
+      this.getJSON(data.coords.latitude, data.coords.longitude);
+    }
+
+    // Fail. navigator.geolocation is not supported or was blocked. Use IP-based location instead.
+    function geoError() {
+      // Try ip-api.com first
+      freegeoip();
+
+      // call ip-api.com, if it fails, try freegeoip.net
+      function ipapi() {
+        fetch("http://ip-api.com/json")
+          .then(data => this.getJSON(data.lat, data.lon))
+          .catch(error =>
+            // final error message after navigator.geolocation,
+            // ip-api.com, freegeoip.net, and ipinfo.io have all failed
+            console.error("**location failed - REPLACE WITH BODY TEXT**", error)
+          );
+      }
+
+      // call freegeoip.net, if it fails, try ipinfo.io
+      function freegeoip() {
+        fetch("https://freegeoip.net/json?callback=?")
+          .then(data => this.getJSON(data.latitude, data.longitude))
+          .catch(ipinfo);
+      }
+
+      // call ipinfo.io, if it fails, give an error message.
+      function ipinfo() {
+        fetch("https://ipinfo.io/json")
+          .then(data =>
+            this.getJSON(data.loc.split(",")[0], data.loc.split(",")[1])
+          )
+          .catch(ipapi);
+      }
+    }
+  }
+  */
+  getLocation() {
+    const options = {
+      enableHighAccuracy: true
     };
     //Dummy one, which will result in a working next statement.
     navigator.geolocation.getCurrentPosition(function() {}, function() {}, {});
@@ -89,21 +134,31 @@ class RestaurantInfo extends Component {
   render() {
     const { error, isLoaded, info } = this.state;
     const restArr = [info.nearby_restaurants];
+    const placeholderImg =
+      "https://res.cloudinary.com/dsjoktefu/image/upload/v1523468876/chuttersnap-596073-unsplash_grjbbd.jpg";
+
     if (error) {
       return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
       let random = Math.floor(Math.random() * restArr[0].length);
+      let imgUrl = info.nearby_restaurants[random].restaurant.thumb;
+      if (imgUrl === "") {
+        imgUrl = placeholderImg;
+      }
       return (
         <div>
           <ul>
+            {console.log(restArr[random])}
             <li>{info.nearby_restaurants[random].restaurant.name}</li>
             <li>{info.nearby_restaurants[random].restaurant.cuisines}</li>
             <li>
               {info.nearby_restaurants[random].restaurant.currency +
                 "" +
-                info.nearby_restaurants[random].restaurant.average_cost_for_two}
+                info.nearby_restaurants[random].restaurant
+                  .average_cost_for_two +
+                " for 2 people"}
             </li>
             <li>
               {info.nearby_restaurants[random].restaurant.user_rating
@@ -114,19 +169,20 @@ class RestaurantInfo extends Component {
                   .rating_text}
             </li>
             <li>
-              <img src={info.nearby_restaurants[random].restaurant.thumb} />
-              {console.log(info.nearby_restaurants[random])}
+              <img src={imgUrl} />
             </li>
             <li>
               <a
                 target="_blank"
                 href={info.nearby_restaurants[random].restaurant.url}
               >
-                More Info
+                Tell Me More
               </a>
             </li>
           </ul>
-          <button onClick={this.handleClick}>New Restaurant</button>
+          <button id="newBtn" onClick={this.handleClick}>
+            New Restaurant
+          </button>
         </div>
       );
     }
