@@ -1,4 +1,5 @@
 const path = require("path");
+const port = process.env.PORT || 5000;
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
