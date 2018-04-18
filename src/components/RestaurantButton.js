@@ -4,7 +4,11 @@ import "../css/style.css";
 
 class RestaurantButton extends Component {
   render() {
-    return <button onClick={this.props.updateDOM}>New Restaurant</button>;
+    return (
+      <button id="newBtn" onClick={this.props.handleClick}>
+        New Restaurant
+      </button>
+    );
   }
 }
 
