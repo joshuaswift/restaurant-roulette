@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import "../css/style.css";
 
-export default class RestaurantImage extends Component {
+class RestaurantImage extends Component {
   render() {
-    const placeholderImg =
-      "https://res.cloudinary.com/dsjoktefu/image/upload/v1523468876/chuttersnap-596073-unsplash_grjbbd.jpg";
+    let imgArr = this.props.images;
+    let random = Math.floor(Math.random() * imgArr.length);
+    let placeholderImg = imgArr[random].url;
+    console.log(imgArr[random]);
 
     return (
       <li>
@@ -14,3 +16,5 @@ export default class RestaurantImage extends Component {
     );
   }
 }
+
+export default RestaurantImage;

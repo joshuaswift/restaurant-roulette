@@ -10,6 +10,10 @@ import RestaurantRating from "./RestaurantRating";
 import RestaurantImage from "./RestaurantImage";
 import RestaurantUrl from "./RestaurantUrl";
 
+import { ZOMATO_API_KEY } from "../../.env";
+
+var images = require("../data/restaurant-images.json");
+
 class RestaurantInfo extends Component {
   constructor(props) {
     super(props);
@@ -97,7 +101,6 @@ class RestaurantInfo extends Component {
   }
 
   getJSON(lat, lon) {
-    const API_KEY = "96655442d9afa6b0eb1f89c6a2cb611b";
     console.log(lat, lon);
 
     fetch(
@@ -108,7 +111,7 @@ class RestaurantInfo extends Component {
       {
         method: "GET",
         headers: {
-          "user-key": API_KEY,
+          "user-key": ZOMATO_API_KEY,
           Accept: "application/json"
         }
       }
@@ -143,6 +146,7 @@ class RestaurantInfo extends Component {
   render() {
     const { error, isLoaded, info } = this.state;
     const restArr = [info.restaurants];
+    let randomArr = [];
 
     if (error) {
       return <div> Error: {error.message}</div>;
@@ -150,6 +154,8 @@ class RestaurantInfo extends Component {
       return <div>Loading...</div>;
     } else {
       let random = Math.floor(Math.random() * restArr[0].length);
+      randomArr.push(random);
+      console.log(randomArr);
 
       return (
         <div>
@@ -173,6 +179,7 @@ class RestaurantInfo extends Component {
             <RestaurantImage
               thumb={info.restaurants[random].restaurant.thumb}
               featImage={info.restaurants[random].restaurant.featured_image}
+              images={images}
             />
             <RestaurantUrl url={info.restaurants[random].restaurant.url} />
           </ul>
