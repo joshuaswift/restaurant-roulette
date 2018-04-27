@@ -16,6 +16,9 @@ const paths = {
 
 //Webpack config
 module.exports = {
+  node: {
+    fs: "empty"
+  },
   entry: path.join(paths.JS, "app.js"),
   output: {
     path: paths.DIST,

@@ -1,9 +1,20 @@
 body {
-  background: #f9fafb;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  background-color: #cdd6d0;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  font-size: 20px;
   margin: 0;
   padding: 30px;
+}
+
+h1 {
+  color: white;
+  font-family: "Josefin Slab", serif;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: "Josefin Slab", serif;
 }
 
 ul {
@@ -32,7 +43,7 @@ li {
   font-weight: 700;
   outline: none;
   position: relative;
-  background: #cb4e4e;
+  background: #db3a34;
   color: #fff;
   box-shadow: 0 6px #ab3c3c;
   -webkit-transition: none;
@@ -55,14 +66,18 @@ a {
   display: inline-block;
   margin: 15px 25px;
   outline: none;
-  color: black;
+  color: white;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 1px;
   font-weight: 400;
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
   font-size: 1.35em;
   padding: 8px 0;
+  font-family: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 img {
