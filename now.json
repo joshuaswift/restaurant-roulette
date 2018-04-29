@@ -1,0 +1,10 @@
+{
+  "now": {
+    "name": "restaurant-roulette",
+
+    "env": {
+      "PORT": "8080",
+      "ZOMATO_API_KEY": "@zomato-api-key"
+    }
+  }
+}

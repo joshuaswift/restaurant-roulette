@@ -10,8 +10,6 @@ import RestaurantRating from "./RestaurantRating";
 import RestaurantImage from "./RestaurantImage";
 import RestaurantUrl from "./RestaurantUrl";
 
-import { ZOMATO_API_KEY } from "../../.env";
-
 var images = require("../data/restaurant-images.json");
 
 class RestaurantInfo extends Component {
@@ -111,7 +109,7 @@ class RestaurantInfo extends Component {
       {
         method: "GET",
         headers: {
-          "user-key": ZOMATO_API_KEY,
+          "user-key": process.env.ZOMATO_API_KEY,
           Accept: "application/json"
         }
       }
