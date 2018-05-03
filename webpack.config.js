@@ -1,11 +1,8 @@
 const path = require("path");
-const port = process.env.PORT || 5000;
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 //Define paths
 const paths = {
@@ -30,8 +27,12 @@ module.exports = {
       template: path.join(paths.SRC, "index.html")
     }),
     new ExtractTextPlugin("style.bundle.css"),
-    new BundleAnalyzerPlugin()
+    new CleanWebpackPlugin(["dist"])
   ],
+  devServer: {
+    port: 3000,
+    open: true
+  },
   module: {
     rules: [
       {

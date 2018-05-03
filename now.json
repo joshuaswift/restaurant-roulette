@@ -1,9 +1,7 @@
 {
-  "now": {
-    "name": "restaurant-roulette",
+  "name": "restaurant-roulette",
 
-    "env": {
-      "ZOMATO_API_KEY": "@zomato-api-key"
-    }
+  "env": {
+    "ZOMATO_API_KEY": "96655442d9afa6b0eb1f89c6a2cb611b"
   }
 }

@@ -12,6 +12,8 @@ import RestaurantUrl from "./RestaurantUrl";
 
 var images = require("../data/restaurant-images.json");
 
+var apiKey = process.env.ZOMATO_API_KEY;
+
 class RestaurantInfo extends Component {
   constructor(props) {
     super(props);
@@ -109,7 +111,7 @@ class RestaurantInfo extends Component {
       {
         method: "GET",
         headers: {
-          "user-key": process.env.ZOMATO_API_KEY,
+          "user-key": "96655442d9afa6b0eb1f89c6a2cb611b",
           Accept: "application/json"
         }
       }
@@ -134,7 +136,7 @@ class RestaurantInfo extends Component {
 
   componentDidMount() {
     this.getLocation();
-    console.log("mounted");
+    console.log(apiKey);
   }
 
   handleClick() {

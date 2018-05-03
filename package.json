@@ -6,6 +6,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.10",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
@@ -17,13 +18,16 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development --open"
+    "dev": "webpack-dev-server --mode development --open",
+    "start": "babel-node server.js"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "cloudinary": "^1.11.0",
     "express": "^4.16.3",
     "now-env": "^3.0.4",
     "npm": "^6.0.0",
+    "open": "0.0.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
