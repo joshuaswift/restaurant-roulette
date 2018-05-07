@@ -61,6 +61,40 @@ li {
   top: 6px;
 }
 
+#locationBtn {
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  padding: 25px 80px;
+  display: inline-block;
+  margin: 15px 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  background: #db3a34;
+  color: #fff;
+  box-shadow: 0 6px #ab3c3c;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+}
+
+#locationBtn:hover {
+  box-shadow: 0 8px #ab3c3c;
+  top: -2px;
+}
+
+#locationBtn:active {
+  box-shadow: 0 0 #ab3c3c;
+  top: 6px;
+}
+
 a {
   position: relative;
   display: inline-block;
@@ -83,4 +117,5 @@ a:hover {
 img {
   height: 200px;
   width: 200px;
+  border-radius: 5px;
 }

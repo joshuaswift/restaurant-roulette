@@ -22,61 +22,15 @@ class RestaurantInfo extends Component {
       error: null,
       isLoaded: false,
       info: [],
-      shouldUpdate: false
+      shouldUpdate: false,
+      locationPermission: false
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.getJSON = this.getJSON.bind(this);
+    this.locationRequest = this.locationRequest.bind(this);
   }
-  /*
-  getLocation() {
-    const options = {
-      enableHighAccuracy: true
-    };
 
-    navigator.geolocation
-      ? navigator.geolocation.getCurrentPosition(geoSuccess, geoError, options)
-      : geoError();
-
-    // Success. navigator.geolocation is supported and not blocked.
-    function geoSuccess(data) {
-      this.getJSON(data.coords.latitude, data.coords.longitude);
-    }
-
-    // Fail. navigator.geolocation is not supported or was blocked. Use IP-based location instead.
-    function geoError() {
-      // Try ip-api.com first
-      freegeoip();
-
-      // call ip-api.com, if it fails, try freegeoip.net
-      function ipapi() {
-        fetch("http://ip-api.com/json")
-          .then(data => this.getJSON(data.lat, data.lon))
-          .catch(error =>
-            // final error message after navigator.geolocation,
-            // ip-api.com, freegeoip.net, and ipinfo.io have all failed
-            console.error("**location failed - REPLACE WITH BODY TEXT**", error)
-          );
-      }
-
-      // call freegeoip.net, if it fails, try ipinfo.io
-      function freegeoip() {
-        fetch("https://freegeoip.net/json?callback=?")
-          .then(data => this.getJSON(data.latitude, data.longitude))
-          .catch(ipinfo);
-      }
-
-      // call ipinfo.io, if it fails, give an error message.
-      function ipinfo() {
-        fetch("https://ipinfo.io/json")
-          .then(data =>
-            this.getJSON(data.loc.split(",")[0], data.loc.split(",")[1])
-          )
-          .catch(ipapi);
-      }
-    }
-  }
-  */
   getLocation() {
     const options = {
       enableHighAccuracy: true
@@ -101,8 +55,6 @@ class RestaurantInfo extends Component {
   }
 
   getJSON(lat, lon) {
-    console.log(lat, lon);
-
     fetch(
       "https://developers.zomato.com/api/v2.1/search?start=0&count=100&lat=" +
         lat +
@@ -134,9 +86,13 @@ class RestaurantInfo extends Component {
       );
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+
+  locationRequest() {
+    this.setState({
+      locationPermission: true
+    });
     this.getLocation();
-    console.log(apiKey);
   }
 
   handleClick() {
@@ -144,18 +100,21 @@ class RestaurantInfo extends Component {
   }
 
   render() {
-    const { error, isLoaded, info } = this.state;
+    const { error, isLoaded, info, locationPermission } = this.state;
     const restArr = [info.restaurants];
-    let randomArr = [];
 
-    if (error) {
+    if (locationPermission === false) {
+      return (
+        <button id="locationBtn" onClick={this.locationRequest}>
+          Random Restaurant
+        </button>
+      );
+    } else if (error) {
       return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
       let random = Math.floor(Math.random() * restArr[0].length);
-      randomArr.push(random);
-      console.log(randomArr);
 
       return (
         <div>

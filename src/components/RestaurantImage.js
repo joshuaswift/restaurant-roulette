@@ -7,7 +7,6 @@ class RestaurantImage extends Component {
     let imgArr = this.props.images;
     let random = Math.floor(Math.random() * imgArr.length);
     let placeholderImg = imgArr[random].url;
-    console.log(imgArr[random]);
 
     return (
       <li>
