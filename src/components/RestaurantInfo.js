@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import "../css/style.css";
 
 import RestaurantButton from "./RestaurantButton";
+import LocationButton from "./LocationButton";
 import RestaurantName from "./RestaurantName";
 import RestaurantCuisine from "./RestaurantCuisine";
 import RestaurantCost from "./RestaurantCost";
@@ -10,9 +11,9 @@ import RestaurantRating from "./RestaurantRating";
 import RestaurantImage from "./RestaurantImage";
 import RestaurantUrl from "./RestaurantUrl";
 
-var images = require("../data/restaurant-images.json");
+const apiKey = process.env.ZOMATO_API_KEY;
 
-var apiKey = process.env.ZOMATO_API_KEY;
+var images = require("../data/restaurant-images.json");
 
 class RestaurantInfo extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class RestaurantInfo extends Component {
       {
         method: "GET",
         headers: {
-          "user-key": "96655442d9afa6b0eb1f89c6a2cb611b",
+          "user-key": apiKey,
           Accept: "application/json"
         }
       }
@@ -86,8 +87,6 @@ class RestaurantInfo extends Component {
       );
   }
 
-  componentDidMount() {}
-
   locationRequest() {
     this.setState({
       locationPermission: true
@@ -102,13 +101,10 @@ class RestaurantInfo extends Component {
   render() {
     const { error, isLoaded, info, locationPermission } = this.state;
     const restArr = [info.restaurants];
+    console.log(process.env.ZOMATO_API_KEY);
 
     if (locationPermission === false) {
-      return (
-        <button id="locationBtn" onClick={this.locationRequest}>
-          Random Restaurant
-        </button>
-      );
+      return <LocationButton locationRequest={this.locationRequest} />;
     } else if (error) {
       return <div> Error: {error.message}</div>;
     } else if (!isLoaded) {
