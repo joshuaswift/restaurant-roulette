@@ -3,6 +3,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 //Define paths
 const paths = {
@@ -23,6 +24,7 @@ module.exports = {
   },
   devtool: "inline-source-map",
   plugins: [
+    new Dotenv(),
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, "index.html")
     }),
