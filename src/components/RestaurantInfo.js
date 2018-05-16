@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import "../css/style.css";
+import "../css/flex-styles.css";
 
 import RestaurantButton from "./RestaurantButton";
 import LocationButton from "./LocationButton";
@@ -8,7 +9,7 @@ import RestaurantName from "./RestaurantName";
 import RestaurantCuisine from "./RestaurantCuisine";
 import RestaurantCost from "./RestaurantCost";
 import RestaurantRating from "./RestaurantRating";
-import RestaurantImage from "./RestaurantImage";
+//import RestaurantImage from "./RestaurantImage";
 import RestaurantUrl from "./RestaurantUrl";
 
 const apiKey = process.env.ZOMATO_API_KEY;
@@ -113,7 +114,7 @@ class RestaurantInfo extends Component {
       let random = Math.floor(Math.random() * restArr[0].length);
 
       return (
-        <div>
+        <div id="container">
           <ul>
             <RestaurantName name={info.restaurants[random].restaurant.name} />
             <RestaurantCuisine
@@ -131,11 +132,7 @@ class RestaurantInfo extends Component {
                 info.restaurants[random].restaurant.user_rating.rating_text
               }
             />
-            <RestaurantImage
-              thumb={info.restaurants[random].restaurant.thumb}
-              featImage={info.restaurants[random].restaurant.featured_image}
-              images={images}
-            />
+
             <RestaurantUrl url={info.restaurants[random].restaurant.url} />
           </ul>
           <RestaurantButton handleClick={this.handleClick} />
