@@ -9,7 +9,6 @@ import RestaurantName from "./RestaurantName";
 import RestaurantCuisine from "./RestaurantCuisine";
 import RestaurantCost from "./RestaurantCost";
 import RestaurantRating from "./RestaurantRating";
-//import RestaurantImage from "./RestaurantImage";
 import RestaurantUrl from "./RestaurantUrl";
 
 const apiKey = process.env.ZOMATO_API_KEY;
