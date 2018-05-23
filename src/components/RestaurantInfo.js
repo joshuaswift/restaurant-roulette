@@ -101,7 +101,6 @@ class RestaurantInfo extends Component {
   render() {
     const { error, isLoaded, info, locationPermission } = this.state;
     const restArr = [info.restaurants];
-    console.log(process.env.ZOMATO_API_KEY);
 
     if (locationPermission === false) {
       return <LocationButton locationRequest={this.locationRequest} />;

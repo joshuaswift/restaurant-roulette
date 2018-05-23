@@ -1,7 +1,17 @@
+html,
 body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-image: url("https://res.cloudinary.com/dsjoktefu/image/upload/v1526331820/dan-gold-105699-unsplash_a3jvry.jpg");
   height: 100vh;
+  margin: 0;
 }
+
+/*@media (max-width: 1800px) {
+  body {
+    height: 100vh;
+    margin: 0;
+  }
+}
+*/
