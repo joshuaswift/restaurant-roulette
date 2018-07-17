@@ -6,12 +6,14 @@ import "../css/style.css";
 
 import Header from "../components/Header";
 import RestaurantContainer from "../components/RestaurantContainer";
+import FooterContainer from "../components/FooterContainer";
 export default class App extends Component {
   render() {
     return (
       <div id="hero">
         <Header id="header" />
         <RestaurantContainer />
+        <FooterContainer />
       </div>
     );
   }

@@ -13,7 +13,7 @@ html {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-image: url("https://res.cloudinary.com/dsjoktefu/image/upload/c_fill,g_north_west,h_2400,w_1600/v1526331820/dan-gold-105699-unsplash_a3jvry.jpg");
+    background-image: url("../assets/rest_roulette_mobile_hero.jpg");
     margin: 0;
     height: 100%vh;
   }
